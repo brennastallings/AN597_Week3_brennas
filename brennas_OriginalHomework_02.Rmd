@@ -1,5 +1,5 @@
 ---
-title: "brennas_OriginalHomework_02"
+title: "Homework_02"
 author: "brennastallings"
 date: "9/16/2019"
 output: html_document
@@ -9,22 +9,52 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+This is for [Homework 2](https://fuzzyatelin.github.io/bioanth-stats/homework-02.html)of AN597 for Modules 6&7.
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+Question 1
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+>Every Saturday morning, at the same time, a primatologist goes and sits in the forest to listen for titi monkey calls, counting the number of calls they hear in a 2 hour window from 5am to 7am. Based on previous knowledge, she believes that the mean number of calls she will hear in that time is exactly 15. Let X represent the appropriate Poisson random variable of the number of calls heard in each monitoring session.
 
-```{r cars}
-summary(cars)
+P(x; μ) = (e-μ) (μx) / x!
+μ=15
+e = 2.71828
+
+What is the probability that she will hear more than 8 calls during any given session?
+First put in reasoning, written out(dont need to follow naming conventions outside of chunks)
+```{r}
+##this is a cumulative poisson distribution where x>=8
+
 ```
 
-## Including Plots
+What is the probability that she will hear no calls in a session?
+```{r}
+##probabilty where x=0
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+What is the probability that she will hear exactly 3 calls in a session?
+```{r}
+##probability where x=3
+```
+
+
+Plot the relevant Poisson mass function over the values in range 0 ≤ x ≤ 30.
+```{r}
+
+```
+
+
+Simulate 104 results from this distribution (i.e., 2 years of Saturday monitoring sessions).
+```{r}
+
+```
+
+
+Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30.
+```{r}
+
+```
+
+
+How does your histogram compare to the shape of the probability mass function you plotted above?
