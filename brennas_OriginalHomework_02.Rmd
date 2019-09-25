@@ -78,6 +78,11 @@ ncall<-104
 ```
 
 ```{r}
+x<-c(0:30)
+l = 15
+probset<-dpois(x=c(1:30),lambda=l)
+#gives the probabilty of each # in the vector 1:30
+ncall<-104
 Saturdays <- function(x) {
   sample(1:30, x, replace=TRUE, prob = probset)
 #not sure I can sample from Probset
@@ -91,11 +96,35 @@ twoyear<-Saturdays(ncall)
 
 Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30.
 ```{r echo=FALSE}
-hist(twoyear, probability=TRUE, main="Sample Calls", xlab="Number of Calls", ylab="Probability")
+hist(twoyear, probability=TRUE, main="Sample Calls", xlab="Number of Calls", ylab="Probability", xlim=c(0,30))
 
 ```
 
 
 #How does your histogram compare to the shape of the probability mass function you plotted above?
 
-The shape is not as symmetrical as the original. 
+The shape is not as symmetrical as the original. It tends to be skewed to one side.
+```{r echo=FALSE}
+x<-c(0:30)
+l = 15
+probset<-dpois(x=c(1:30),lambda=l)
+ncall<-100000
+Saturdays <- function(x) {
+  sample(1:30, x, replace=TRUE, prob = probset)
+  }
+twoyear<-Saturdays(ncall)
+
+hist(twoyear, probability=TRUE, main="Sample Calls", xlab="Number of Calls", ylab="Probability", xlim=c(0,30))
+##This was unnecessary, I just wanted to see what would happen if you sampled more times
+```
+>5 Challenges
+
+1. I tried to use the dpois function when I needed to use the ppois function
+
+2. I thought that I had a functioning code for the first question but it was only because I hadnt cleared out the environment so it was using variables I didnt actually have defined.
+
+3. I couldnt get the code for the final question to work. My graph wasnt properly taking the probabilites from the Poisson into account.
+
+4. I was having the final function sample from the probabilities from the Poisson instead of the numbers in it.
+
+5. I cannot get the bins in my final graph to match the bins in the mass function that we had made before.
