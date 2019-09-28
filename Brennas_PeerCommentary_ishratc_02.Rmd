@@ -1,0 +1,133 @@
+---
+title: "Homework_02"
+author: "brennastallings"
+date: "9/16/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is for [Homework 2](https://fuzzyatelin.github.io/bioanth-stats/homework-02.html)of AN597 for Modules 6&7.
+
+Question 1
+
+>Every Saturday morning, at the same time, a primatologist goes and sits in the forest to listen for titi monkey calls, counting the number of calls they hear in a 2 hour window from 5am to 7am. Based on previous knowledge, she believes that the mean number of calls she will hear in that time is exactly 15. Let X represent the appropriate Poisson random variable of the number of calls heard in each monitoring session.
+
+P(x; λ) = (e-λ) (λx) / x!
+λ=15
+e = 2.71828
+
+What is the probability that she will hear more than 8 calls during any given session?
+
+```{r echo=FALSE}
+##this is a cumulative poisson distribution where x>=8
+#dpois(x>8, lambda=15)
+##This gives me a set of values, so NOPE
+#1-sum(dpois(x>8, lambda=15))
+#THis may be right, not sure, the probability seems high
+
+#These 2 are wrong
+```
+
+```{r}
+ppois(q=7, lambda = 15, lower.tail = FALSE)
+#q is 7, because with lower.tail=FALSE, the P[X > x], so to include 8, q=7
+
+```
+
+What is the probability that she will hear no calls in a session?
+```{r}
+##probabilty where x=0
+dpois(x=0, lambda=15)
+```
+
+
+What is the probability that she will hear exactly 3 calls in a session?
+```{r}
+##probability where x=3
+dpois(x=3, lambda=15)
+```
+
+
+Plot the relevant Poisson mass function over the values in range 0 ≤ x ≤ 30.
+```{r}
+x <- 0:30
+l = 15
+probset<-dpois(x=x,lambda=l)
+barplot(probset,names.arg=x,space=0,xlab="x",ylab="Pr(X = x)",main="Probability Mass Function")
+```
+
+
+Simulate 104 results from this distribution (i.e., 2 years of Saturday monitoring sessions).
+```{r echo=FALSE}
+#x <- 0:30
+x<-c(0:30)
+l = 15
+probset<-dpois(x=c(1:30),lambda=l)
+#gives the probabilty of each # in the vector 1:30
+ncall<-104
+
+#Saturdays <- function(x) {
+#  sample(1:30, x, replace=TRUE)
+##not sure I can sample from Probset
+#  }
+#twoyear<-Saturdays(ncall)
+##the above code doesnt take the probabilities into account, but gives out the right sort of output
+```
+
+```{r}
+x<-c(0:30)
+l = 15
+probset<-dpois(x=c(1:30),lambda=l)
+#gives the probabilty of each # in the vector 1:30
+ncall<-104
+Saturdays <- function(x) {
+  sample(1:30, x, replace=TRUE, prob = probset)
+#not sure I can sample from Probset
+  }
+twoyear<-Saturdays(ncall)
+
+#prob= tells the fxn to find the probability of each of the #s 1:30 in the vector called probset
+
+```
+
+
+Plot the simulated results using hist() and use xlim() to set the horizontal limits to be from 0 to 30.
+```{r echo=FALSE}
+hist(twoyear, probability=TRUE, main="Sample Calls", xlab="Number of Calls", ylab="Probability", xlim=c(0,30))
+```
+
+
+#How does your histogram compare to the shape of the probability mass function you plotted above?
+
+The shape is not as symmetrical as the original. It tends to be skewed to one side.
+```{r echo=FALSE}
+x<-c(0:30)
+l = 15
+probset<-dpois(x=c(1:30),lambda=l)
+ncall<-100000
+Saturdays <- function(x) {
+  sample(1:30, x, replace=TRUE, prob = probset)
+  }
+twoyear<-Saturdays(ncall)
+
+hist(twoyear, probability=TRUE, main="Sample Calls", xlab="Number of Calls", ylab="Probability", xlim=c(0,30))
+##This was unnecessary, I just wanted to see what would happen if you sampled more times
+
+
+# my suggestion to you would be to add the breaks argument, this will allow you to define the number of bins you want, therefore adding breaks = 30 should give you 30 bins similar to the one in the histogram before
+# otherwise your code looks very good, the graphs are "pretty"as in they are well labeled in addition your annotations are easy to follow 
+```
+>5 Challenges
+
+1. I tried to use the dpois function when I needed to use the ppois function
+
+2. I thought that I had a functioning code for the first question but it was only because I hadnt cleared out the environment so it was using variables I didnt actually have defined.
+
+3. I couldnt get the code for the final question to work. My graph wasnt properly taking the probabilites from the Poisson into account.
+
+4. I was having the final function sample from the probabilities from the Poisson instead of the numbers in it.
+
+5. I cannot get the bins in my final graph to match the bins in the mass function that we had made before.
